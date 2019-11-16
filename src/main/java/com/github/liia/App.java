@@ -1,9 +1,6 @@
 package com.github.liia;
 
 import com.github.liia.service.ParserService;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import us.codecraft.xsoup.Xsoup;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
