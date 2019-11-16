@@ -14,23 +14,23 @@ class AppIntegrationTest {
 	@Test
 	void tsnTest() throws IOException {
 		String resultForTest = App.getCurrencyExchangeRateFromTSN();
-		String exchangeRateAsString = resultForTest.split(";")[1];
 		assertThat(resultForTest).contains("TSN;");
-		assertThat(exchangeRateAsString).describedAs("exchangeRateAsString").isNotNull().isNotEmpty();
-		BigDecimal exchangeRateAsBigDecimal = new BigDecimal(exchangeRateAsString);
-		assertThat(exchangeRateAsBigDecimal).describedAs("exchangeRateAsBigDecimal").isGreaterThan(BigDecimal.valueOf(0));
+		assertExchangeRate(resultForTest);
 	}
 
 	@DisplayName("Test currency result from liga")
 	@Test
 	void ligaTest() throws IOException {
 		String resultForTest = App.getCurrencyExchangeRateFromLiga();
-		String exchangeRateAsString = resultForTest.split(";")[1];
 		assertThat(resultForTest).contains("LIGA;");
+		assertExchangeRate(resultForTest);
+	}
+
+	private void assertExchangeRate(String resultForTest) {
+		String exchangeRateAsString = resultForTest.split(";")[1];
 		assertThat(exchangeRateAsString).describedAs("exchangeRateAsString").isNotNull().isNotEmpty();
 		BigDecimal exchangeRateAsBigDecimal = new BigDecimal(exchangeRateAsString);
 		assertThat(exchangeRateAsBigDecimal).describedAs("exchangeRateAsBigDecimal").isGreaterThan(BigDecimal.valueOf(0));
 	}
-
 
 }
