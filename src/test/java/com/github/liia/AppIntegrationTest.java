@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
-class AppTest {
+class AppIntegrationTest {
 
 	@DisplayName("Test currency result from tsn")
 	@Test
@@ -32,5 +31,6 @@ class AppTest {
 		BigDecimal exchangeRateAsBigDecimal = new BigDecimal(exchangeRateAsString);
 		assertThat(exchangeRateAsBigDecimal).describedAs("exchangeRateAsBigDecimal").isGreaterThan(BigDecimal.valueOf(0));
 	}
+
 
 }
