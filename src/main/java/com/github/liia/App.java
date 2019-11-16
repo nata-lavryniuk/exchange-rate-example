@@ -1,5 +1,6 @@
 package com.github.liia;
 
+import com.github.liia.service.ParserService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import us.codecraft.xsoup.Xsoup;
@@ -14,8 +15,10 @@ import java.util.concurrent.TimeUnit;
 public class App {
 
   private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd/hh/mm");
+  private static final ParserService parserService = new ParserService();
 
   public static void main(String[] args) throws IOException, InterruptedException {
+    System.out.println("Exchange rate application running");
     while(true) {
       saveToFile(getCurrencyExchangeRateFromTSN());
 //   saveToFile(getCurrencyExchangeRateFrom112());
@@ -26,15 +29,11 @@ public class App {
   }
 
    private static String getCurrencyExchangeRateFromTSN() throws IOException {
-    Document document = Jsoup.connect("https://tsn.ua").get();
-//    String result = document.getElementsByClass("c-currency-table").select(".o-title-sub").first().text();
-    return "TSN;" + Xsoup.compile("//span[@class='o-title-sub']/text()").evaluate(document).get();
+    return "TSN;" + parserService.parse("https://tsn.ua", "//span[@class='o-title-sub']/text()");
   }
 
   private static String getCurrencyExchangeRateFromLiga() throws IOException {
-    Document document1 = Jsoup.connect("https://finance.liga.net/currency").get();
-//    String object1 = document1.getElementsByClass("usd").first().text();
-    return "LIGA;" + Xsoup.compile("//span[@class='usd']/text()").evaluate(document1).get();
+    return "LIGA;" + parserService.parse("https://finance.liga.net/currency", "//span[@class='usd']/text()");
   }
 
 
