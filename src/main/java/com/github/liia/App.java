@@ -25,11 +25,11 @@ public class App {
     }
   }
 
-   private static String getCurrencyExchangeRateFromTSN() throws IOException {
+  public static String getCurrencyExchangeRateFromTSN() throws IOException {
     return "TSN;" + parserService.parse("https://tsn.ua", "//span[@class='o-title-sub']/text()");
   }
 
-  private static String getCurrencyExchangeRateFromLiga() throws IOException {
+  protected static String getCurrencyExchangeRateFromLiga() throws IOException {
     return "LIGA;" + parserService.parse("https://finance.liga.net/currency", "//span[@class='usd']/text()");
   }
 
