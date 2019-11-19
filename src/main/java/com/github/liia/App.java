@@ -15,12 +15,13 @@ public class App {
   private static final ParserService parserService = new ParserService();
 
   public static void main(String[] args) throws IOException, InterruptedException {
+
+
     System.out.println("Exchange rate application running");
     while(true) {
       saveToFile(getCurrencyExchangeRateFromTSN());
-//   saveToFile(getCurrencyExchangeRateFrom112());
       saveToFile(getCurrencyExchangeRateFromLiga()); //https://finance.liga.net/currency
-      //saveToFile2(getCurrencyExchangeRateFromIUA()); //https://finance.i.ua/
+      saveToFile(getCurrencyExchangeRateFromIUA()); //https://finance.i.ua/
       TimeUnit.SECONDS.sleep(5);
     }
   }
@@ -29,25 +30,18 @@ public class App {
     return "TSN;" + parserService.parse("https://tsn.ua", "//span[@class='o-title-sub']/text()");
   }
 
-  protected static String getCurrencyExchangeRateFromLiga() throws IOException {
+  public static String getCurrencyExchangeRateFromLiga() throws IOException {
     return "LIGA;" + parserService.parse("https://finance.liga.net/currency", "//span[@class='usd']/text()");
   }
 
-
-
-  /**private static String getCurrencyExchangeRateFromIUA() throws IOException {
-    Document document2 = Jsoup.connect("https://finance.i.ua/").get();
-    System.out.println(document2);
-    String object = document2.getElementsByClass("decrease").get(1).text();
-    return Xsoup.compile("//span[@class='decrease']/text()").evaluate(document2).get();
-
-
-  }*/
+  public static String getCurrencyExchangeRateFromIUA() throws IOException {
+    return "IUA;" + parserService.parse("https://finance.i.ua/", "//td[@class='sell_rate']///text()/span");
+  }
 
   private static void saveToFile(String result) throws IOException {
     String datetime = LocalDateTime.now().format(DATE_TIME_FORMAT);
     try(PrintStream printStream = new PrintStream(new FileOutputStream("exchangeRate.csv",true))) {
-      printStream.append(datetime + ";" + result + "\n");
+      printStream.append(datetime + ";" + result + "\n" + "\n");
     } catch(IOException ex) {
       System.out.println(ex.getMessage());
     }

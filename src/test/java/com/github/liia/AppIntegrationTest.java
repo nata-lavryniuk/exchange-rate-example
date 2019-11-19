@@ -26,6 +26,14 @@ class AppIntegrationTest {
 		assertExchangeRate(resultForTest);
 	}
 
+	@DisplayName("Test currency result from liga")
+	@Test
+	void iUATest() throws IOException {
+		String resultForTest = App.getCurrencyExchangeRateFromIUA();
+		assertThat(resultForTest).contains("IUA;");
+		assertExchangeRate(resultForTest);
+	}
+
 	private void assertExchangeRate(String resultForTest) {
 		String exchangeRateAsString = resultForTest.split(";")[1];
 		assertThat(exchangeRateAsString).describedAs("exchangeRateAsString").isNotNull().isNotEmpty();

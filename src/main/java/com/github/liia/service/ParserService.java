@@ -12,6 +12,4 @@ public class ParserService {
     Document document = Jsoup.connect(url).get();
     return Xsoup.compile(xpath).evaluate(document).get();
   }
-
-
 }
