@@ -1,12 +1,15 @@
 package com.github.liia;
 
 import com.github.liia.service.ParserService;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class App {
@@ -15,7 +18,12 @@ public class App {
   private static final ParserService parserService = new ParserService();
 
   public static void main(String[] args) throws IOException, InterruptedException {
-
+    Yaml yaml = new Yaml();
+    InputStream inputStream = this.getClass()
+            .getClassLoader()
+            .getResourceAsStream("config.yaml");
+    Map<String, Object> obj = yaml.load(inputStream);
+    System.out.println(obj);
 
     System.out.println("Exchange rate application running");
     while(true) {

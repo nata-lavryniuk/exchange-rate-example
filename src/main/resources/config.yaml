@@ -1,0 +1,15 @@
+config:
+  exchangeRateServices:
+    service:
+      -
+      name: TSN
+        url: "https://tsn.ua"
+        xpath: "//span[@class='o-title-sub']/text()"
+        -
+      name: LIGA
+        url: "https://finance.liga.net/currency"
+        xpath: "//span[@class='usd']/text()"
+        -
+      name: IUA
+        url: "https://finance.i.ua"
+        xpath: "//td[@class='sell_rate']///text()/span"
