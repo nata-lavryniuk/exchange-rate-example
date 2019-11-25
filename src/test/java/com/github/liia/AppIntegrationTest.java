@@ -12,7 +12,7 @@ class AppIntegrationTest {
 
 	@DisplayName("Test currency result from tsn")
 	@Test
-	void tsnTest() throws IOException {
+	void tsnTest() throws ExchangeRateParseException {
 		String resultForTest = App.getCurrencyExchangeRateFromTSN();
 		assertThat(resultForTest).contains("TSN;");
 		assertExchangeRate(resultForTest);
@@ -20,7 +20,7 @@ class AppIntegrationTest {
 
 	@DisplayName("Test currency result from liga")
 	@Test
-	void ligaTest() throws IOException {
+	void ligaTest() throws ExchangeRateParseException {
 		String resultForTest = App.getCurrencyExchangeRateFromLiga();
 		assertThat(resultForTest).contains("LIGA;");
 		assertExchangeRate(resultForTest);
@@ -28,7 +28,7 @@ class AppIntegrationTest {
 
 	@DisplayName("Test currency result from liga")
 	@Test
-	void iUATest() throws IOException {
+	void iUATest() throws ExchangeRateParseException {
 		String resultForTest = App.getCurrencyExchangeRateFromIUA();
 		assertThat(resultForTest).contains("IUA;");
 		assertExchangeRate(resultForTest);
